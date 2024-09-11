@@ -2,7 +2,7 @@ import * as anchor from '@coral-xyz/anchor';
 
 const createAnchorProvider = (): anchor.AnchorProvider => {
   const connection = new anchor.web3.Connection(
-    'http://localhost:8899',
+    'http://127.0.0.1:8899',
     'confirmed',
   );
   const keypair = anchor.web3.Keypair.fromSecretKey(

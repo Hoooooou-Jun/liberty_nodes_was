@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CommentModule } from '@modules/comment.module.js';
+import { CommentModule } from './modules/comment.module.js';
 
 @Module({
   imports: [CommentModule],
