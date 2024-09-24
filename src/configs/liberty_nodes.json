@@ -38,10 +38,10 @@
       "args": [
         {
           "name": "url",
-          "type": "string"
+          "type": "u64"
         },
         {
-          "name": "content",
+          "name": "cid",
           "type": "string"
         }
       ]
@@ -80,26 +80,16 @@
             "type": "pubkey"
           },
           {
-            "name": "vote",
-            "type": "i8"
-          },
-          {
             "name": "url",
-            "type": {
-              "array": [
-                "u8",
-                128
-              ]
-            }
+            "type": "u64"
           },
           {
-            "name": "content",
-            "type": {
-              "array": [
-                "u8",
-                512
-              ]
-            }
+            "name": "cid",
+            "type": "string"
+          },
+          {
+            "name": "vote",
+            "type": "u64"
           }
         ]
       }
