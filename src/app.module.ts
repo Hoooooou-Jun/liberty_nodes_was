@@ -5,6 +5,6 @@ import { HeliaModule } from './modules/helia.module.js';
 import { IPFSModule } from './modules/ipfs.module.js';
 
 @Module({
-  imports: [CommentModule, AnchorModule, HeliaModule, IPFSModule],
+  imports: [CommentModule, AnchorModule, IPFSModule],
 })
 export class AppModule {}

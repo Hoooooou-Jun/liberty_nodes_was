@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@solana/web3.js": "^1.95.3",
     "@web3-storage/w3up-client": "^16.2.0",
+    "bn": "^1.0.5",
     "dotenv": "^16.4.5",
     "helia": "^4.2.5",
     "multiformats": "^13.3.0",

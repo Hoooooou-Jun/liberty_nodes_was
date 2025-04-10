@@ -4,6 +4,8 @@ import IDL from '../configs/liberty_nodes.json' assert { type: 'json' };
 import { LibertyNodes } from '../types/liberty_nodes.js';
 import { CommentAccount } from '../types/index.js';
 import { Client } from '@web3-storage/w3up-client';
+import { BN } from "bn.js";
+import { PublicKey } from '@solana/web3.js';
 
 @Injectable()
 export class CommentService {
@@ -41,6 +43,7 @@ export class CommentService {
       const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' })
       const file = new File([blob], 'metadata.json')
       const cid = await this.IPFSProvider.uploadFile(file);
+
     } catch (error) {
       console.error('[CommentService.createComment] Error creating comment:', error);
       throw error;
