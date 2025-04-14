@@ -1,4 +1,3 @@
-// node.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 
 @Entity()

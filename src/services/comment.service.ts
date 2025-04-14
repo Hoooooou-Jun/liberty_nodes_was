@@ -20,6 +20,17 @@ export class CommentService {
   ) {
     // this.program = new anchor.Program(IDL as LibertyNodes, this.anchorProvider);
   }
+
+  async getComment() {
+    try {
+      console.log("getComment Hello!!");
+      return {"message": "Hello from getComment!"};
+    } catch (error) {
+      console.error('[CommentService.getComment] Error fetching data:', error);
+      throw error;
+    }
+  }
+
   // async getComment() {
   //   try {
   //     const commentAccountData = await this.program.account.commentAccount.all();

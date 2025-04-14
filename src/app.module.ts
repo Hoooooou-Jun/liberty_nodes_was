@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { ConfigModule } from '@nestjs/config';
 import { CommentModule } from './modules/comment.module.js';
 import { AnchorModule } from './modules/anchor.module.js';
@@ -8,6 +10,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RedisModule } from './modules/redis.module.js';
 import { Node } from './entities/node.entity.js';
 import { Comment } from './entities/comment.entity.js';
+import { UserModule } from './modules/user.module.js';
+import { AuthModule } from './modules/auth.module.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 @Module({
   imports: [
@@ -15,6 +22,8 @@ import { Comment } from './entities/comment.entity.js';
       isGlobal: true,
       envFilePath: ['.env'],
     }),
+    AuthModule,
+    UserModule,
     CommentModule,
     AnchorModule,
     IPFSModule,
@@ -26,8 +35,12 @@ import { Comment } from './entities/comment.entity.js';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [Node, Comment],
       synchronize: true,
+      migrationsRun: false,
+      logging: true,
+      logger: 'file',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      migrations: [__dirname + '/migrations/*{.ts,.js}'],
     }),
 ],
 })

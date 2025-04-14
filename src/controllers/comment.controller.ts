@@ -1,9 +1,25 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, ValidationPipe } from '@nestjs/common';
 import { CommentService } from '../services/comment.service.js';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
+
+  @Get()
+  async getCommentData() {
+    const data = await this.commentService.getComment();
+    return data;
+  }
+
+  @Post()
+  @UseGuards(AuthGuard('access_token'))
+  async createComment(
+    @Body() dto
+  ) {
+
+    return { message: "Success!"};
+  }
 
   // @Get()
   // async getCommentData(
