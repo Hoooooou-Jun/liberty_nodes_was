@@ -14,9 +14,7 @@ export class CommentController {
 
   @Post()
   @UseGuards(AuthGuard('access_token'))
-  async createComment(
-    @Body() dto
-  ) {
+  async createComment(@Body() dto) {
 
     return { message: "Success!"};
   }

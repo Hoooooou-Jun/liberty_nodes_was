@@ -8,6 +8,7 @@ import { UserModule } from '../modules/user.module.js';
 import { AccessTokenStrategy } from '../strategies/access_token.strategy.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity.js';
+import { RedisService } from '../services/redis.service.js';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { User } from '../entities/user.entity.js';
     }),
   ],
   controllers: [AuthController],
-  providers: [GoogleStrategy, AccessTokenStrategy, AuthService],
+  providers: [GoogleStrategy, AccessTokenStrategy, AuthService, RedisService],
   exports: [AuthService],
 })
 export class AuthModule {}

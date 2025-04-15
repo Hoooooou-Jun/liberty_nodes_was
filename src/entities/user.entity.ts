@@ -11,8 +11,8 @@ export class User {
   @Column({ nullable: true })
   password?: string;
 
-  @Column()
-  username: string;
+  @Column({ nullable: true })
+  username?: string;
 
   @Column({ nullable: true })
   profileImage: string;

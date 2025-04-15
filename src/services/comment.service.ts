@@ -6,7 +6,6 @@ import { CommentAccount } from '../types/index.js';
 import { Client } from '@web3-storage/w3up-client';
 import { BN } from "bn.js";
 import { PublicKey } from '@solana/web3.js';
-import { REDIS_CLIENT } from '../providers/redis.provider.js';
 import { RedisClientType } from 'redis';
 
 @Injectable()
@@ -14,7 +13,7 @@ export class CommentService {
   // private program: anchor.Program<LibertyNodes>;
 
   constructor(
-    @Inject(REDIS_CLIENT) private readonly redisClient: RedisClientType
+    // @Inject(REDIS_CLIENT) private readonly redisClient: RedisClientType
     // @Inject('ANCHOR_PROVIDER') private readonly anchorProvider: anchor.AnchorProvider,
     // @Inject('IPFS_PROVIDER') private readonly IPFSProvider: Client,
   ) {

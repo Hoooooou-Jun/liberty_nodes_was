@@ -9,3 +9,8 @@ export interface CommentAccount {
     cid: string;
   };
 }
+
+export interface JwtPayload {
+  sub: string;
+  email: string;
+}

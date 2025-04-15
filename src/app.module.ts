@@ -12,6 +12,7 @@ import { Node } from './entities/node.entity.js';
 import { Comment } from './entities/comment.entity.js';
 import { UserModule } from './modules/user.module.js';
 import { AuthModule } from './modules/auth.module.js';
+import { RedisService } from './services/redis.service.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
