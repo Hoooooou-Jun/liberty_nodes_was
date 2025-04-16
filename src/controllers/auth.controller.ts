@@ -3,7 +3,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { GoogleAuthReqDto } from '../dto/request/googleAuth.req.dto.js';
 import { AuthService } from '../services/auth.service.js';
-import { JwtPayload } from 'src/types/index.js';
+import { JwtPayload } from '../types/index.js';
+import { UpdateUsernameByIdReqDto } from '../dto/request/updateUsernameById.dto.js';
 
 
 @Controller('auth')
@@ -20,6 +21,12 @@ export class AuthController {
     return this.authService.googleLogin(req);
   }
 
+  @Post('update/username')
+  @UseGuards(AuthGuard("access_token"))
+  async updateUsername(@Body() dto: UpdateUsernameByIdReqDto, @Req() req: Request) {
+    return this.authService.UpdateUsername(dto);
+  }
+
   @Post("refresh")
   @UseGuards(AuthGuard("refresh_token"))
   async refreshToken(@Req() req: Request, @Res() res: Response) {
@@ -29,20 +36,4 @@ export class AuthController {
 
     /* 레디스 상에서 토큰 교체해야함. */
   }
-
-  // @Get()
-  // async getCommentData(
-  // ) {
-  //   const data = await this.commentService.getComment();
-  //   return data;
-  // }
-
-  // @Post()
-  // async createComment(
-  //   @Body() createCommentDto: { publicKey: string, secretKey: string, url: string, content: string }
-  // ) {
-  //   const { publicKey, secretKey, url, content } = createCommentDto;
-  //   const data = await this.commentService.createComment(publicKey, secretKey, url, content);
-  //   return data;
-  // }
 }

@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { GoogleAuthReqDto } from '../dto/request/googleAuth.req.dto.js';
 import { UserRepository } from '../repositories/user.repository.js';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../entities/user.entity.js';
-import { RegisterUsernameReqDto } from '../dto/request/registerUser.req.dto.js';
 import { RedisService } from './redis.service.js';
+import { UpdateUsernameByIdReqDto } from '../dto/request/updateUsernameById.dto.js';
 
 @Injectable()
 export class AuthService {
@@ -44,9 +44,22 @@ export class AuthService {
       throw new Error('Google login failed');
     }
   }
-  async registerUsername(dto: RegisterUsernameReqDto) {
+  async UpdateUsername(dto: UpdateUsernameByIdReqDto) {
     try {
+      const user = await this.userRepository.updateUsernameById(dto);
 
+      if (!user) {
+        return {
+          message: 'User not found',
+        };
+      }
+      return {
+        message: 'Username updated successfully',
+        user: {
+          id: user.id,
+          username: user.username,
+        },
+      }
     } catch (error) {
       console.error('Error in AuthService: ', error);
       throw new Error('Register username failed');

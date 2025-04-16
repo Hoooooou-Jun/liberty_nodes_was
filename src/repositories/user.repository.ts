@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, FindOneOptions, Repository } from 'typeorm';
 import { User } from '../entities/user.entity.js';
-import { CreateUserReqDto } from 'src/dto/request/createUser.req.dto.js';
+import { CreateUserReqDto } from '../dto/request/createUser.req.dto.js';
+import { UpdateUsernameByIdReqDto } from '../dto/request/updateUsernameById.dto.js';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -19,5 +20,13 @@ export class UserRepository extends Repository<User> {
       where: { email },
     };
     return await this.findOne(option);
+  }
+
+  async updateUsernameById(dto: UpdateUsernameByIdReqDto): Promise<User | null> {
+    const user = await this.findOne({ where: { id: dto.id } });
+    if (!user) return null;
+
+    user.username = dto.username;
+    return await this.save(user);
   }
 }
