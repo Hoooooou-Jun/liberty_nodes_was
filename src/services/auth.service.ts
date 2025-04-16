@@ -30,10 +30,10 @@ export class AuthService {
         return null;
       }
 
-      const access_token = this.createAccessToken(user);
-      const refresh_token = this.createRefreshToken(user);
+      const access_token = await this.createAccessToken(user.id, user.email);
+      const refresh_token = await this.createRefreshToken(user.id, user.email);
 
-      this.redisService.set(String(user.id), String(refresh_token));
+      await this.redisService.set(String(user.id), String(refresh_token));
 
       return {
         access_token: access_token,
@@ -65,11 +65,11 @@ export class AuthService {
       throw new Error('Register username failed');
     }
   }
-  async createAccessToken(user: User) {
-    const access_token = this.jwtService.sign(
+  async createAccessToken(id: number, email: string) {
+    const access_token = await this.jwtService.sign(
       {
-        email: user.email,
-        sub: user.id,
+        email: email,
+        sub: id,
       },
       {
         secret: process.env.JWT_SECRET,
@@ -78,11 +78,11 @@ export class AuthService {
     );
     return access_token;
   }
-  async createRefreshToken(user: User) {
-    const refresh_token = this.jwtService.sign(
+  async createRefreshToken(id: number, email: string) {
+    const refresh_token = await this.jwtService.sign(
       {
-        email: user.email,
-        sub: user.id,
+        email: email,
+        sub: id,
       },
       {
         secret: process.env.JWT_SECRET,

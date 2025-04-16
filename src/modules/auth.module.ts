@@ -9,6 +9,7 @@ import { AccessTokenStrategy } from '../strategies/access_token.strategy.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity.js';
 import { RedisService } from '../services/redis.service.js';
+import { RefreshTokenStrategy } from '../strategies/refresh_token.strategy.js';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { RedisService } from '../services/redis.service.js';
     }),
   ],
   controllers: [AuthController],
-  providers: [GoogleStrategy, AccessTokenStrategy, AuthService, RedisService],
+  providers: [GoogleStrategy, AccessTokenStrategy, RefreshTokenStrategy, AuthService, RedisService],
   exports: [AuthService],
 })
 export class AuthModule {}

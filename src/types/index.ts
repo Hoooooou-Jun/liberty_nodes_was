@@ -11,6 +11,6 @@ export interface CommentAccount {
 }
 
 export interface JwtPayload {
-  sub: string;
+  sub: number;
   email: string;
 }

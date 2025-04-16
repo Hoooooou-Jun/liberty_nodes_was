@@ -6,7 +6,6 @@ import { AuthService } from '../services/auth.service.js';
 import { JwtPayload } from '../types/index.js';
 import { UpdateUsernameByIdReqDto } from '../dto/request/updateUsernameById.dto.js';
 
-
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -18,22 +17,24 @@ export class AuthController {
   @Get("google/callback")
   @UseGuards(AuthGuard("google"))
   async googleLoginCallback(@Req() req: GoogleAuthReqDto) {
-    return this.authService.googleLogin(req);
+    return await this.authService.googleLogin(req);
   }
 
   @Post('update/username')
   @UseGuards(AuthGuard("access_token"))
   async updateUsername(@Body() dto: UpdateUsernameByIdReqDto, @Req() req: Request) {
-    return this.authService.UpdateUsername(dto);
+    return await this.authService.UpdateUsername(dto);
   }
 
   @Post("refresh")
   @UseGuards(AuthGuard("refresh_token"))
-  async refreshToken(@Req() req: Request, @Res() res: Response) {
+  async refreshToken(@Req() req: Request) {
     const { refreshToken, sub, email } = req.user as JwtPayload & {
       refreshToken: string;
     }
-
-    /* 레디스 상에서 토큰 교체해야함. */
+    return {
+      message: "Refresh access token success",
+      access_token: await this.authService.createAccessToken(sub, email)
+    }
   }
 }
