@@ -14,6 +14,11 @@ export class AuthController {
   @UseGuards(AuthGuard("google"))
   async googleLogin(@Req() req: Request) {}
 
+  @Post('google/exchange')
+  async googleExchange(@Body('code') code: string) {
+    return this.authService.exchangeGoogleCode(code);
+  }
+
   @Get("google/callback")
   @UseGuards(AuthGuard("google"))
   async googleLoginCallback(@Req() req: GoogleAuthReqDto) {

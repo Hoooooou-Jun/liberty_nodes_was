@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity.js';
 import { RedisService } from '../services/redis.service.js';
 import { RefreshTokenStrategy } from '../strategies/refresh_token.strategy.js';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RefreshTokenStrategy } from '../strategies/refresh_token.strategy.js';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
+    HttpModule,
   ],
   controllers: [AuthController],
   providers: [GoogleStrategy, AccessTokenStrategy, RefreshTokenStrategy, AuthService, RedisService],
